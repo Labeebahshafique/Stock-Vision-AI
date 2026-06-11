@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Insights - StockVision AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="data:,">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+  
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dashboard-body">
+
+    <div id="screenLoader" class="screen-loader">
+        <div class="spinner-wrapper">
+            <div class="metro-spinner"></div>
+            <p class="mt-4 font-mono text-sm tracking-widest text-indigo-400">LOADING INSIGHT MATRIX...</p>
+        </div>
+    </div>
+
+    <div class="dashboard-layout">
+      
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <i data-lucide="trending-up" class="brand-graphic text-indigo-500"></i>
+                    <span class="brand-text font-sans">StockVision <span class="accent-text">AI</span></span>
+                </div>
+            </div>
+
+          
+            <div class="user-block">
+                <div class="avatar">
+                    <i data-lucide="user-check" class="avatar-icon"></i>
+                </div>
+                <div class="user-details">
+                    <h4 class="user-name">Univ Auditor</h4>
+                    <span class="user-role">Research Evaluator</span>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="/dashboard" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/market-insights" class="nav-item active">
+                    <i data-lucide="bar-chart-3"></i>
+                    <span>Market Insights</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="btn btn-secondary w-full justify-start text-rose-400">
+                    <i data-lucide="log-out"></i>
+                    <span>Log Out</span>
+                </button>
+                <p class="class-info mt-6 text-xs text-muted font-mono">CSC200 / CSC203 / CSC204</p>
+            </div>
+        </aside>
+
+      
+        <main class="main-content">
+            <header class="top-nav justify-between pr-4">
+                <div class="header-left">
+                    <h1 class="page-title font-sans">Strategic Market Insights</h1>
+                    <p class="page-subtitle">Algorithmic stock selections, correlation maps, and tree querying</p>
+                </div>
+                <a href="/dashboard" class="btn btn-secondary btn-sm">
+                    <i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i> Dashboard
+                </a>
+            </header>
+
+            <div class="dashboard-grid">
+
+                <div class="glass-card col-span-2 shadow-2xl">
+                    <div class="dsa-indicator-pill">
+                        <i data-lucide="binary" class="w-3.5 h-3.5 mr-1"></i>
+                        <span>DSA Priority Queue Model</span>
+                    </div>
+                    <h3 class="card-title font-sans mt-2">Top-Performing Assets (Heap Ranked)</h3>
+                    <p class="card-description">
+                        Calculated by inserting stocks into a binary min-heap to keep the top elements. 
+                        Ranks dynamically based on a multi-asset performance formula (Growth &bull; 0.65 + Confidence &bull; 0.25 - Volatility &bull; 0.1) in logarithmic time.
+                    </p>
+
+                    <div class="ranking-table-wrapper mt-4">
+                        <table class="data-table" id="rankingTable">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Ticker</th>
+                                    <th>Company</th>
+                                    <th>Performance Score</th>
+                                    <th>CAGR %</th>
+                                    <th>Signal Code</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              
+                                <tr>
+                                    <td colspan="6" class="text-center font-mono py-8">Computing Heap Rankings...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+               
+                <div class="glass-card">
+                    <h3 class="card-title font-sans">
+                        <i data-lucide="shield-check" class="mr-2 text-indigo-400"></i>
+                        Lowest Volatility Assets
+                    </h3>
+                    <p class="card-description">Discovered via statistical deviation checks using NumPy matrices</p>
+                    
+                    <div class="low-risk-list mt-4" id="lowRiskList">
+                        <!-- JS populated -->
+                        <div class="text-center font-mono py-8">Finding assets...</div>
+                    </div>
+                </div>
+
+            \
+                <div class="glass-card col-span-3 shadow-2xl border-indigo-500/20">
+                    <div class="dsa-indicator-pill">
+                        <i data-lucide="network" class="w-3.5 h-3.5 mr-1"></i>
+                        <span>DSA Adjacency Graph traversal</span>
+                    </div>
+                    <h3 class="card-title font-sans mt-2">Automated Sector Correlation Graph Explorer</h3>
+                    <p class="card-description">
+                        This panel represents inter-stock similarities based on sector overlap as a bidirectional graph. 
+                        Pick a node to execute <b>Breadth-First Search (BFS)</b> or <b>Depth-First Search (DFS)</b> traversals and trace correlations step-by-step.
+                    </p>
+
+             
+                    <div class="graph-explore bg-glass mt-4">
+                        <div class="graph-toolbar">
+                            <div class="tool-field">
+                                <label for="startNode">Select Start Stock node:</label>
+                                <select id="startNode" class="select-field">
+                                    <option value="AAPL">AAPL (Apple)</option>
+                                    <option value="MSFT">MSFT (Microsoft)</option>
+                                    <option value="GOOGL">GOOGL (Alphabet)</option>
+                                    <option value="NVDA">NVDA (NVIDIA)</option>
+                                    <option value="AMZN">AMZN (Amazon)</option>
+                                    <option value="TSLA">TSLA (Tesla)</option>
+                                    <option value="META">META (Meta)</option>
+                                    <option value="NFLX">NFLX (Netflix)</option>
+                                </select>
+                            </div>
+                            <div class="tool-buttons">
+                                <button class="btn btn-secondary" id="runBfsBtn">
+                                    <i data-lucide="git-pull-request" class="w-4 h-4 mr-1 text-indigo-400 animate-pulse"></i> Run BFS (Level-order)
+                                </button>
+                                <button class="btn btn-secondary" id="runDfsBtn">
+                                    <i data-lucide="git-branch" class="w-4 h-4 mr-1 text-indigo-400"></i> Run DFS (Deep search)
+                                </button>
+                            </div>
+                        </div>
+
+                     
+                        <div class="graph-canvas-container mt-4">
+                            <canvas id="graphCanvas" class="graph-canvas"></canvas>
+                            <div class="canvas-floating-legend">
+                                <span class="legend-dot clr-unvisited"></span><span>Unvisited Node</span>
+                                <span class="legend-dot clr-queued"></span><span>Queued / Selected</span>
+                                <span class="legend-dot clr-visited"></span><span>Visited Path</span>
+                            </div>
+                        </div>
+
+                     
+                        <div class="traversal-logs mt-4 flex items-center">
+                            <span class="font-mono text-sm uppercase tracking-wider text-muted mr-3">Traversal Path:</span>
+                            <div class="path-display font-mono" id="pathDisplay">
+                                Select search traversal to begin logging node trace...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+
+    <script>
+        if (!localStorage.getItem('stockvision_token')) {
+            window.location.href = '/';
+        }
+    </script>
+    <script src="/static/js/insights.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "name": "StockVision AI",
+  "description": "StockVision AI is an intelligent Stock Recommendation and Risk Analysis Platform combining Data Science, Software Engineering, Networks, and Data Structures & Algorithms.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

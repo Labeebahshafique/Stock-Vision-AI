@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - StockVision AI</title>
+  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="data:,">
+ 
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="login-bg">
+
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+
+    <div class="login-container">
+    
+        <div class="login-header-block">
+            <div class="brand-logo">
+                <i data-lucide="trending-up" class="logo-icon animate-pulse text-indigo-500"></i>
+                <span class="brand-name font-sans">StockVision <span class="accent-text">AI</span></span>
+            </div>
+            <p class="brand-subtitle">Intelligent Stock Recommendation & Risk System</p>
+        </div>
+
+       
+        <div class="glass-card login-card" id="loginCard">
+            <h2 class="card-heading text-center">Corporate Portal</h2>
+            <p class="card-subtext text-center">Authenticate to access investment analysis</p>
+
+            <form id="loginForm" class="login-form">
+                <div class="error-banner hidden" id="loginError">
+                    <i data-lucide="alert-circle" class="error-icon"></i>
+                    <span id="errorMessage">Invalid Username or Password</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="user" class="input-icon"></i>
+                        <input type="text" id="username" name="username" placeholder="Enter 'admin'" required autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Security Password</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="lock" class="input-icon"></i>
+                        <input type="password" id="password" name="password" placeholder="Enter 'stockvision123'" required>
+                        <button type="button" class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
+                            <i data-lucide="eye" id="toggleIcon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full shadow-lg" id="submitBtn">
+                    <span>Verify Credentials</span>
+                    <i data-lucide="shield-check" class="btn-icon"></i>
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <p>Course: CN &bull; SE &bull; Data Science &bull; DSA</p>
+                <p class="text-xs text-muted font-mono mt-2">Default Dev Access: admin / stockvision123</p>
+            </div>
+        </div>
+    </div>
+
+  
+    <script>
+     
+        if (localStorage.getItem('stockvision_token')) {
+            window.location.href = '/dashboard';
+        }
+    </script>
+    <script src="/static/js/login.js"></script>
+    <script>
+     
+        lucide.createIcons();
+    </script>
+</body>
+</html>
